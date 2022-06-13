@@ -4,6 +4,11 @@ let longitude = '';
 let cityEl = $("#cur-city");
 let dateEl = $("#date");
 let curIconEl = $("#icon");
+let curTempEl = $("#cur-temp");
+let curWindEl = $("#cur-wind");
+let curHumidityEl = $("#cur-humidity");
+let curUVEl = $("#cur-uv");
+
 
 
 
@@ -48,6 +53,11 @@ function getweather(lat,lon) {
       let iconImageEl = $("<img>");
       iconImageEl.attr('src', `./assets/css/icons/${curWeatherIcon}.png`);
       iconImageEl.appendTo(curIconEl);
+
+      curTempEl.text(`Temperature: ${curTemp} °C`)
+      curWindEl.text(`Wind Speed: ${curWindSpeed} m/s`)
+      curHumidityEl.text(`Humidity: ${curHumidity} %`)
+      curUVEl.text(`UV Index: ${curUVIndex}`)
 
       console.log(data.current.temp); // celsius
       console.log(data.current.wind_speed); // metre/sec
