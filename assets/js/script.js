@@ -10,8 +10,10 @@ let curHumidityEl = $("#cur-humidity");
 let curUVEl = $("#cur-uv");
 let searchBtnEl = $("#search-btn");
 let searchInputEl = $("#city");
-
 let infoSection = $("#info");
+let fiveDaysInfoSection = $("fiveDaysInfo");
+
+
 
 
 let date = moment().format("MM/DD/YYYY");
@@ -33,6 +35,9 @@ function getcoordinates(searchInputCity) {
       console.log(cityName);
       // console.log(data[0].lat, data[0].lon,cityName);  
       return (latitude,longitude,cityName);    
+    })
+    .catch(function(){
+      console.log('nooooooooo');
     });
 }
 
@@ -42,7 +47,9 @@ function getweather(lat,lon) {
 
   fetch(weatherUrl)
     .then(function (response) {
-      return response.json();
+      if (response.status === 200) {
+        return response.json();
+      }      
     })
     .then(function (data) {      
       // console.log(data);
@@ -52,8 +59,9 @@ function getweather(lat,lon) {
       let curUVIndex = data.current.uvi
       let curWeatherIcon = data.current.weather[0].icon;
       
-      let iconImageEl = $("<img>");
+      let iconImageEl = $("<img id='cur-icon'>");
       iconImageEl.attr('src', `./assets/css/icons/${curWeatherIcon}.png`);
+      iconImageEl.replaceWith(iconImageEl);
       iconImageEl.appendTo(curIconEl);
 
       curTempEl.text(`Temperature: ${curTemp} °C`)
@@ -70,16 +78,25 @@ function getweather(lat,lon) {
       getFiveDayWeather(data);
            
     });
+   
 }
 
 function getFiveDayWeather(data) {
-
   console.log(data);
-
   for (let i = 0; i < 5; i++) {
+    let forecastCard = $("<div class='card m-5'>").css('max-width','10rem');
+    let forecastCardHeader = $("<div class='card-header'>");
+    let forecastCardBody = $("<div class='card-body'>");
 
-    // date = moment(date).add(1, 'd').format("MM/DD/YYYY");
-    // console.log(date);
+    date = moment(date).add(1, 'd').format("MM/DD/YYYY");
+    forecastCardHeader.text(date);
+    console.log(date);
+
+    forecastCardBody.appendTo(forecastCardHeader);
+    forecastCardHeader.appendTo(forecastCard);
+    fiveDaysInfoSection.add(forecastCard);
+
+
 
     // let icon = data.daily[i].weather[0].icon;
     // let temperature = data.daily[i].temp.day;    
@@ -88,22 +105,24 @@ function getFiveDayWeather(data) {
     // console.log(temperature, wind, humidity, icon);
     
   }
-
-  
-
 }
 
 
 
-searchBtnEl.click(function(){
-  console.log("clicked");
+searchBtnEl.click(function(e){
+  e.preventDefault();
+
   let searchInputCity = searchInputEl.val();
   console.log(searchInputCity);
 
-  dateEl.text(`(${date})`);  
+  dateEl.text(`(${date})`); 
+  $("#cur-icon").remove();
   infoSection.removeClass("d-none");
   infoSection.addClass("d-block");
   
-  getcoordinates(searchInputCity)
+  if (searchInputCity){
+    getcoordinates(searchInputCity)
     .then(() => getweather(latitude,longitude));
+  }
+  
 })
