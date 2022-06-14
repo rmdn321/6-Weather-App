@@ -24,18 +24,18 @@
       <div id="search-city" class="m-3">
         <label class="form-label fs-3 fw-bold">Search for a City:</label>
         <div class="row">
-            <input type="text" class="form-control col-xs-3" id="city" placeholder="San Francisco">
-            <button id="search-btn" type="button" class="btn btn-primary col-xs-3 mt-3">Search</button>
-          </div>
+          <input type="text" class="form-control col-xs-3" id="city" placeholder="San Francisco">
+          <button id="search-btn" type="button" class="btn btn-primary col-xs-3 mt-3">Search</button>
+        </div>
       </div>
       <ul id="searched"></ul>
 
     </aside>
 
-    <div class="col-sm-8">
+    <div class="d-none col-sm-8" id="info">
       <section>
           <div id="today" class="card m-5 border border-3 br-10 d-flex ">
-            <div id="today-city" class="card-header fs-3 fw-bold ">
+            <div id="today-city" class="card-header fs-3 fw-bold main-header">
               <span id="cur-city"></span> 
               <span id="date"></span>
               <span id="icon"></span>
@@ -50,9 +50,16 @@
           </div>
       </section>
 
-      <section>
-
+      <section class="card m-5">
+        <div class="card m-5" style="max-width: 10rem;">
+          <div class="card-header">Header</div>
+          <div class="card-body">
+            
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>         
       </section>
+
     </div>
   </div>
   <footer id="footer" class="text-center">

@@ -2,17 +2,23 @@
 * {
   box-sizing: border-box;
   font-family: 'Titillium Web', sans-serif;
-  
 }
 
 #navbar,
 #footer {
-  background-color: #0e3f7b;
+  background-color: #f3722c;
   color: white;
 }
 
+#footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
 .bg {
-  background-color: #f3f9d2;
+  background-color: #f9c74f;
+  height: auto;
 }
 
 h2 {
@@ -25,11 +31,11 @@ h2 {
 
 .btn:hover {
   font-size: 1.2rem;
-  background-color: #0e3f7b;
+  background-color: #f3722c;
 }
 
 .btn-primary {
-  background-color: #0e3f7b;
+  background-color: #f3722c;
 }
 
 .br-10{
@@ -37,12 +43,16 @@ h2 {
   border-radius: 10px;
 }
 
+.main-header {
+  background-color: #577590;
+  color: white;
+}
+
 #search-city{
-  background-color: #f3f9d2;
+  background-color: #f9c74f;
 }
 
 #today {
-  background-color: #cbeaa6;
+  background-color: #90be6d;
   color: black;
-  border: 2px solid #90be6d!important;
 } 
