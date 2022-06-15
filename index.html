@@ -25,7 +25,7 @@
         <label class="form-label fs-3 fw-bold">Search for a City:</label>
         <div class="row">
           <input type="text" class="form-control col-xs-3" id="city" placeholder="San Francisco">
-          <button id="search-btn" type="button" class="btn btn-primary col-xs-3 mt-3">Search</button>
+          <button id="search-btn" type="button" class="btn btn-orange col-xs-3 mt-3">Search</button>
         </div>
       </div>
       <ul id="searched"></ul>
@@ -42,22 +42,16 @@
               <!-- <img src="" alt=""> -->
             </div>
             <div class="card-body">
-              <p id="cur-temp" class="card-text"></p>
-              <p id="cur-wind" class="card-text"></p>
-              <p id="cur-humidity" class="card-text"></p>
-              <p id="cur-uv" class="card-text"></p>
+              <div id="cur-temp" class="card-text"></div>
+              <div id="cur-wind" class="card-text"></div>
+              <div id="cur-humidity" class="card-text"></div>
+              <div id="cur-uv" class="card-text"></div>
             </div>        
           </div>
       </section>
 
-      <section class="card m-5" id="fiveDaysInfo">
-        <!-- <div class="card m-5" style="max-width: 10rem;">
-          <div class="card-header">Header</div>
-          <div class="card-body">
-            
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>          -->
+      <section class="card d-flex flex-row flex-wrap justify-content-around m-5" id="fiveDaysInfo">
+       
       </section>
 
     </div>

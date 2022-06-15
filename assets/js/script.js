@@ -11,7 +11,7 @@ let curUVEl = $("#cur-uv");
 let searchBtnEl = $("#search-btn");
 let searchInputEl = $("#city");
 let infoSection = $("#info");
-let fiveDaysInfoSection = $("fiveDaysInfo");
+let fiveDaysInfoSection = $("#fiveDaysInfo");
 
 
 
@@ -25,6 +25,10 @@ function getcoordinates(searchInputCity) {
 
   return fetch(coordinatesUrl)
     .then(function (response) {
+      if (response.status !== 200) {
+        console.log("ghftygh");
+        
+      }
       return response.json();
     })
     .then(function (data) {
@@ -38,6 +42,7 @@ function getcoordinates(searchInputCity) {
     })
     .catch(function(){
       console.log('nooooooooo');
+      
     });
 }
 
@@ -84,26 +89,31 @@ function getweather(lat,lon) {
 function getFiveDayWeather(data) {
   console.log(data);
   for (let i = 0; i < 5; i++) {
-    let forecastCard = $("<div class='card m-5'>").css('max-width','10rem');
-    let forecastCardHeader = $("<div class='card-header'>");
+    let forecastCard = $("<div class='card sm-card d-inline col-lg-4 m-5'>");
+    let forecastCardHeader = $("<div class='card-header sm-header text-center'>");
     let forecastCardBody = $("<div class='card-body'>");
 
     date = moment(date).add(1, 'd').format("MM/DD/YYYY");
     forecastCardHeader.text(date);
-    console.log(date);
+    // console.log(date);   
 
-    forecastCardBody.appendTo(forecastCardHeader);
-    forecastCardHeader.appendTo(forecastCard);
-    fiveDaysInfoSection.add(forecastCard);
-
-
-
-    // let icon = data.daily[i].weather[0].icon;
-    // let temperature = data.daily[i].temp.day;    
-    // let wind = data.daily[i].wind_speed;
-    // let humidity = data.daily[i].humidity;    
-    // console.log(temperature, wind, humidity, icon);
     
+
+    let icon = data.daily[i].weather[0].icon;
+    let temperature = data.daily[i].temp.day;    
+    let wind = data.daily[i].wind_speed;
+    let humidity = data.daily[i].humidity;    
+    console.log(temperature, wind, humidity, icon);
+    
+    forecastCardBody.replaceWith(forecastCardBody);
+    forecastCardBody.append(`<img src="./assets/css/icons/${icon}.png"> <br>`).css({"text-align":"center"});
+    forecastCardBody.append(`Temperature: ${temperature} °C <br>`);
+    forecastCardBody.append(`Wind Speed: ${wind} m/s <br>`);
+    forecastCardBody.append(`Humidity: ${humidity} %`);
+
+    fiveDaysInfoSection.append(forecastCard);
+    forecastCard.append(forecastCardHeader);
+    forecastCard.append(forecastCardBody)
   }
 }
 

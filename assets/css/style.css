@@ -2,6 +2,7 @@
 * {
   box-sizing: border-box;
   font-family: 'Titillium Web', sans-serif;
+  line-height: 2rem;
 }
 
 #navbar,
@@ -32,15 +33,22 @@ h2 {
 .btn:hover {
   font-size: 1.2rem;
   background-color: #f3722c;
+  color: white;
 }
 
-.btn-primary {
+.btn:active {
+  background-color: #f3722c;
+  color: white;
+}
+
+.btn-orange {
   background-color: #f3722c;
 }
 
-.br-10{
-  
+.br-10{  
   border-radius: 10px;
+  
+  line-height: 0.5rem;
 }
 
 .main-header {
@@ -56,3 +64,25 @@ h2 {
   background-color: #90be6d;
   color: black;
 } 
+
+
+
+.sm-card{
+  border-radius: 10px;
+  border: 3px solid white;
+  background-color: #577590;
+  color: white;
+  max-width: 14rem;
+}
+.sm-header {
+  background-color: #90be6d;
+  font-weight: bolder;
+  font-size: 1.2rem;
+  /* color: white; */
+}
+
+#fiveDaysInfo {
+  background-color: #f9c74f;
+  border: none;
+}
+
