@@ -52,9 +52,7 @@ function getweather(lat,lon) {
 
   fetch(weatherUrl)
     .then(function (response) {
-      if (response.status === 200) {
-        return response.json();
-      }      
+      return response.json();           
     })
     .then(function (data) {      
       // console.log(data);
@@ -64,6 +62,7 @@ function getweather(lat,lon) {
       let curUVIndex = data.current.uvi
       let curWeatherIcon = data.current.weather[0].icon;
       
+      let UVSpan = $("<span>")
       let iconImageEl = $("<img id='cur-icon'>");
       iconImageEl.attr('src', `./assets/css/icons/${curWeatherIcon}.png`);
       iconImageEl.replaceWith(iconImageEl);
@@ -72,14 +71,22 @@ function getweather(lat,lon) {
       curTempEl.text(`Temperature: ${curTemp} °C`)
       curWindEl.text(`Wind Speed: ${curWindSpeed} m/s`)
       curHumidityEl.text(`Humidity: ${curHumidity} %`)
-      curUVEl.text(`UV Index: ${curUVIndex}`)
-
+      curUVEl.text(`UV Index: `)
+      UVSpan.text(curUVIndex)
+      UVSpan.appendTo(curUVEl)
+      if (curUVIndex < 2) {
+        UVSpan.addClass("badge bg-success")
+      } else if (curUVIndex < 5) {
+        UVSpan.addClass("badge bg-warning")
+      } else {
+        UVSpan.addClass("badge bg-danger")
+      } 
       // console.log(data.current.temp); // celsius
       // console.log(data.current.wind_speed); // metre/sec
       // console.log(data.current.humidity); // %
       // console.log(data.current.weather[0].icon); // img source
-      // console.log(data.current.uvi);
-
+      
+      
       getFiveDayWeather(data);
            
     });
@@ -88,13 +95,15 @@ function getweather(lat,lon) {
 
 function getFiveDayWeather(data) {
   console.log(data);
+  fiveDaysInfoSection.empty();
+  futureDates = date;
   for (let i = 0; i < 5; i++) {
     let forecastCard = $("<div class='card sm-card d-inline col-lg-4 m-5'>");
     let forecastCardHeader = $("<div class='card-header sm-header text-center'>");
     let forecastCardBody = $("<div class='card-body'>");
-
-    date = moment(date).add(1, 'd').format("MM/DD/YYYY");
-    forecastCardHeader.text(date);
+    
+    futureDates = moment(futureDates).add(1, 'd').format("MM/DD/YYYY");
+    forecastCardHeader.text(futureDates);
     // console.log(date);   
 
     
@@ -103,7 +112,7 @@ function getFiveDayWeather(data) {
     let temperature = data.daily[i].temp.day;    
     let wind = data.daily[i].wind_speed;
     let humidity = data.daily[i].humidity;    
-    console.log(temperature, wind, humidity, icon);
+    // console.log(temperature, wind, humidity, icon);
     
     forecastCardBody.replaceWith(forecastCardBody);
     forecastCardBody.append(`<img src="./assets/css/icons/${icon}.png"> <br>`).css({"text-align":"center"});
@@ -114,6 +123,8 @@ function getFiveDayWeather(data) {
     fiveDaysInfoSection.append(forecastCard);
     forecastCard.append(forecastCardHeader);
     forecastCard.append(forecastCardBody)
+
+    
   }
 }
 
@@ -124,6 +135,7 @@ searchBtnEl.click(function(e){
 
   let searchInputCity = searchInputEl.val();
   console.log(searchInputCity);
+  searchInputEl.val('');
 
   dateEl.text(`(${date})`); 
   $("#cur-icon").remove();
