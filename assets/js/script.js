@@ -12,23 +12,40 @@ let searchBtnEl = $("#search-btn");
 let searchInputEl = $("#city");
 let infoSection = $("#info");
 let fiveDaysInfoSection = $("#fiveDaysInfo");
-
-
+let searchedEl = $("#searched");
 
 
 let date = moment().format("MM/DD/YYYY");
-// dateEl.text(`(${date})`);
-// console.log(date);
+
+function addCityHistory(city) {
+  let storedCities = []
+  if (localStorage.cities) {
+    storedCities = JSON.parse(localStorage.cities);
+  }
+  
+  if (storedCities.includes(city)) {
+    return
+  }
+  storedCities.unshift(city);
+  localStorage.cities = JSON.stringify(storedCities);
+  displayCities();
+}
+
+function displayCities() {
+  let storedCities = JSON.parse(localStorage.cities);
+  searchedEl.empty()
+  for (let i = 0; i < storedCities.length ; i++) {
+    cityBtn = $("<button>").text(storedCities[i]).addClass("btn btn-city m-2 ");
+    searchedEl.append(cityBtn);
+  
+  }
+}
 
 function getcoordinates(searchInputCity) {
   var coordinatesUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInputCity}&limit=1&appid=${APIkey}`;
 
   return fetch(coordinatesUrl)
     .then(function (response) {
-      if (response.status !== 200) {
-        console.log("ghftygh");
-        
-      }
       return response.json();
     })
     .then(function (data) {
@@ -36,13 +53,13 @@ function getcoordinates(searchInputCity) {
       longitude = data[0].lon;
       cityName = data[0].name;
       cityEl.text(cityName)
-      console.log(cityName);
-      // console.log(data[0].lat, data[0].lon,cityName);  
+      // console.log(cityName);
+      addCityHistory(cityName);
       return (latitude,longitude,cityName);    
     })
     .catch(function(){
-      console.log('nooooooooo');
-      
+      alert("Please enter a valid city!")   
+      return [];
     });
 }
 
@@ -81,12 +98,7 @@ function getweather(lat,lon) {
       } else {
         UVSpan.addClass("badge bg-danger")
       } 
-      // console.log(data.current.temp); // celsius
-      // console.log(data.current.wind_speed); // metre/sec
-      // console.log(data.current.humidity); // %
-      // console.log(data.current.weather[0].icon); // img source
-      
-      
+     
       getFiveDayWeather(data);
            
     });
@@ -94,7 +106,7 @@ function getweather(lat,lon) {
 }
 
 function getFiveDayWeather(data) {
-  console.log(data);
+  
   fiveDaysInfoSection.empty();
   futureDates = date;
   for (let i = 0; i < 5; i++) {
@@ -104,16 +116,12 @@ function getFiveDayWeather(data) {
     
     futureDates = moment(futureDates).add(1, 'd').format("MM/DD/YYYY");
     forecastCardHeader.text(futureDates);
-    // console.log(date);   
-
-    
-
+   
     let icon = data.daily[i].weather[0].icon;
     let temperature = data.daily[i].temp.day;    
     let wind = data.daily[i].wind_speed;
     let humidity = data.daily[i].humidity;    
-    // console.log(temperature, wind, humidity, icon);
-    
+       
     forecastCardBody.replaceWith(forecastCardBody);
     forecastCardBody.append(`<img src="./assets/css/icons/${icon}.png"> <br>`).css({"text-align":"center"});
     forecastCardBody.append(`Temperature: ${temperature} °C <br>`);
@@ -122,29 +130,51 @@ function getFiveDayWeather(data) {
 
     fiveDaysInfoSection.append(forecastCard);
     forecastCard.append(forecastCardHeader);
-    forecastCard.append(forecastCardBody)
-
+    forecastCard.append(forecastCardBody);
     
   }
 }
-
-
 
 searchBtnEl.click(function(e){
   e.preventDefault();
 
   let searchInputCity = searchInputEl.val();
-  console.log(searchInputCity);
   searchInputEl.val('');
-
-  dateEl.text(`(${date})`); 
-  $("#cur-icon").remove();
-  infoSection.removeClass("d-none");
-  infoSection.addClass("d-block");
   
   if (searchInputCity){
     getcoordinates(searchInputCity)
-    .then(() => getweather(latitude,longitude));
-  }
-  
+    .then((data) => {
+      if (data.length) {
+        dateEl.text(`(${date})`); 
+        $("#cur-icon").remove();
+        infoSection.removeClass("d-none");
+        infoSection.addClass("d-block");
+
+        getweather(latitude,longitude);
+      }
+    });
+  }  
 })
+
+searchedEl.click(function(e){
+
+  if (e.target.classList.contains("btn-city")) {
+    let searchCity = e.target.textContent;
+
+    if (searchCity){
+      getcoordinates(searchCity)
+      .then((data) => {
+        if (data.length) {
+          dateEl.text(`(${date})`); 
+          $("#cur-icon").remove();
+          infoSection.removeClass("d-none");
+          infoSection.addClass("d-block");
+  
+          getweather(latitude,longitude);
+        }
+      });
+    }  
+  }
+})
+
+displayCities();

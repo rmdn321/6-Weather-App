@@ -18,7 +18,7 @@
 }
 
 .bg {
-  background-color: #f9c74f;
+  background-color: #faedcd;
   height: auto;
 }
 
@@ -26,17 +26,12 @@ h2 {
   margin: 0 auto;
 }
 
-.btn {
-  padding: 0 80px;
+.searchbtn {
+  padding: auto 80px;
 }
 
-.btn:hover {
+.searchbtn:hover {
   font-size: 1.2rem;
-  background-color: #f3722c;
-  color: white;
-}
-
-.btn:active {
   background-color: #f3722c;
   color: white;
 }
@@ -57,7 +52,7 @@ h2 {
 }
 
 #search-city{
-  background-color: #f9c74f;
+  background-color: #faedcd;
 }
 
 #today {
@@ -80,7 +75,19 @@ h2 {
 }
 
 #fiveDaysInfo {
-  background-color: #f9c74f;
+  background-color: #faedcd;
   border: none;
 }
 
+.btn-city {
+  background-color: #66829b;
+  color: #70e417;
+  font-weight: bold;
+  width: 80%;
+}
+
+.btn-city:hover {
+  border: 2px solid #66829b;  
+  color: #70e417;
+  
+}
