@@ -1,3 +1,5 @@
+/* Custom css */
+
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
 * {
   box-sizing: border-box;
@@ -40,9 +42,8 @@ h2 {
   background-color: #f3722c;
 }
 
-.br-10{  
-  border-radius: 10px;
-  
+.br-10 {  
+  border-radius: 10px;  
   line-height: 0.5rem;
 }
 
@@ -51,7 +52,7 @@ h2 {
   color: white;
 }
 
-#search-city{
+#search-city {
   background-color: #faedcd;
 }
 
@@ -60,7 +61,7 @@ h2 {
   color: black;
 } 
 
-.sm-card{
+.sm-card {
   border-radius: 10px;
   border: 3px solid white;
   background-color: #577590;

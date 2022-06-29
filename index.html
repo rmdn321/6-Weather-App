@@ -12,6 +12,7 @@
   <title>Weather Dashboard</title>
 </head>
 <body>
+  <!-- App name header -->
   <header>
     <nav class="navbar" id="navbar">
       <div class="container-fluid">
@@ -19,6 +20,8 @@
       </div>
     </nav>
   </header>
+
+  <!-- Aside section conatining the search area and searched cities history -->
   <div class="row d-flex bg">
     <aside class="col-sm-4">
       <div id="search-city" class="m-3">
@@ -28,10 +31,11 @@
           <button id="search-btn" type="button" class="btn btn-orange col-xs-3 mt-3 searchbtn">Search</button>
         </div>
       </div>
-      <div id="searched"></div>
 
+      <div id="searched"></div>
     </aside>
 
+    <!-- Main card section to display the current weather of the searched city -->
     <div class="d-none col-sm-8" id="info">
       <section>
           <div id="today" class="card m-5 border border-3 br-10 d-flex ">
@@ -50,18 +54,21 @@
           </div>
       </section>
 
-      <section class="card d-flex flex-row flex-wrap justify-content-around m-5" id="fiveDaysInfo">
-       
+      <!-- Section that conatins the weather forecast for the next 5 days -->
+      <section class="card d-flex flex-row flex-wrap justify-content-around m-5" id="fiveDaysInfo">       
       </section>
 
     </div>
   </div>
+
+  <!-- Footer section -->
   <footer id="footer" class="text-center">
     <div class="container">
       <p>Copyright &copy; 2022, Weather Dashboard, All Rights Reserved</p>
     </div>
   </footer>
 
+  <!-- Script tags for jQuery, moment.js and my script -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>

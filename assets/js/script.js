@@ -1,3 +1,4 @@
+// Variable declarations
 let APIkey = '2ceedd3549f0cc1f23a76b3f55d50640';
 let latitude = '';
 let longitude = '';
@@ -14,9 +15,10 @@ let infoSection = $("#info");
 let fiveDaysInfoSection = $("#fiveDaysInfo");
 let searchedEl = $("#searched");
 
-
+// Using moment.js to get the current date
 let date = moment().format("MM/DD/YYYY");
 
+// Function to add the searched city to local storage 
 function addCityHistory(city) {
   let storedCities = []
   if (localStorage.cities) {
@@ -31,6 +33,7 @@ function addCityHistory(city) {
   displayCities();
 }
 
+// function to display search city history on the screen under the search button
 function displayCities() {
   if (!localStorage.cities) {
     return
@@ -44,6 +47,7 @@ function displayCities() {
   }
 }
 
+// Function that creates an API call to the open weather API to get the co-ordinates of the city searched
 function getcoordinates(searchInputCity) {
   var coordinatesUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${searchInputCity}&limit=1&appid=${APIkey}`;
 
@@ -66,6 +70,7 @@ function getcoordinates(searchInputCity) {
     });
 }
 
+// Function to create an API call to the open weather API to get the weather data of a particular set of co-ordinates and to display them on the screen
 function getweather(lat,lon) {
 
   var weatherUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${APIkey}`;
@@ -100,14 +105,12 @@ function getweather(lat,lon) {
         UVSpan.addClass("badge bg-warning")
       } else {
         UVSpan.addClass("badge bg-danger")
-      } 
-     
-      getFiveDayWeather(data);
-           
-    });
-   
+      }      
+      getFiveDayWeather(data);           
+    });   
 }
 
+// Function that creates separate cards to display the 5 day weather forecast
 function getFiveDayWeather(data) {
   
   fiveDaysInfoSection.empty();
@@ -133,11 +136,11 @@ function getFiveDayWeather(data) {
 
     fiveDaysInfoSection.append(forecastCard);
     forecastCard.append(forecastCardHeader);
-    forecastCard.append(forecastCardBody);
-    
+    forecastCard.append(forecastCardBody);    
   }
 }
 
+// Event listener on the search button to get the weather data for the searched city
 searchBtnEl.click(function(e){
   e.preventDefault();
 
@@ -159,8 +162,9 @@ searchBtnEl.click(function(e){
   }  
 })
 
+// Event listener on the city buttons in the search history section to display the weather data for that particular city
 searchedEl.click(function(e){
-
+  e.preventDefault();
   if (e.target.classList.contains("btn-city")) {
     let searchCity = e.target.textContent;
 
@@ -180,4 +184,5 @@ searchedEl.click(function(e){
   }
 })
 
+// Calling this function to persist the search history section even if the page is refreshed
 displayCities();

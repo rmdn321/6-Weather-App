@@ -46,7 +46,7 @@ THEN I am again presented with current and future conditions for that city
 ```
 
 ### Video
-![GIF](./assets/gif/work%20day%20scheduler.gif)
+![GIF](./assets/css/Weather%20App%20GIF.gif)
 
 ### Links
 
