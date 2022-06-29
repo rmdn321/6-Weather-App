@@ -32,6 +32,9 @@ function addCityHistory(city) {
 }
 
 function displayCities() {
+  if (!localStorage.cities) {
+    return
+  }
   let storedCities = JSON.parse(localStorage.cities);
   searchedEl.empty()
   for (let i = 0; i < storedCities.length ; i++) {
