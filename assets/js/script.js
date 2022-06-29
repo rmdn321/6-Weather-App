@@ -42,7 +42,7 @@ function displayCities() {
 }
 
 function getcoordinates(searchInputCity) {
-  var coordinatesUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${searchInputCity}&limit=1&appid=${APIkey}`;
+  var coordinatesUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${searchInputCity}&limit=1&appid=${APIkey}`;
 
   return fetch(coordinatesUrl)
     .then(function (response) {
